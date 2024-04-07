@@ -285,14 +285,23 @@ class MyBaseDocument:
             #         self.navigation_content_style
             #     )
             # document.add_body_element(navigation_content)
-            document.add_body_element(self.navigation_content.return_html_object(height=self.navigation_height))
+            height = self.navigation_height
+            document.add_body_element(self.navigation_content.return_html_object(height=height))
 
         # sidebar_content
         if self.sidebar_content:
             # if self.navigation_content:
             #     self.sidebar_content_style.styles['top'] = self.navigation_height
+            if self.navigation_content is not None:
+                top_offset = self.navigation_height
+            else:
+                top_offset = '0'
+            if self.footer_content is not None:
+                footer_offset = self.footer_height
+            else:
+                footer_offset = '0'
             document.add_body_element(self.sidebar_content.return_html_object(
-                top_offset=self.navigation_height, bottom_offset=self.footer_height, width=self.sidebar_width))
+                top_offset=top_offset, bottom_offset=footer_offset, width=self.sidebar_width))
             # sidebar_content = Div(
             #     internal=self.sidebar_content).add_class('sidebar_content').add_style(
             #         self.sidebar_content_style
@@ -301,8 +310,12 @@ class MyBaseDocument:
 
         # body_content
         if self.body_content:
+            if self.sidebar_content is not None:
+                left_offset = self.sidebar_width
+            else:
+                left_offset = '0'
             document.add_body_element(self.body_content.return_html_object(
-                left_offset=self.sidebar_width
+                left_offset=left_offset
             ))
             # if self.navigation_content:
             #     self.body_content_style.styles['top'] = self.navigation_height
