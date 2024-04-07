@@ -1,0 +1,13 @@
+[project]
+name = "my_base_html_lib"
+version = "1.0.0"
+description = 'Creates a default html web page format'
+authors = [
+    {name = "Andrew Cobb", email = "aecobb53@gmail.com"}
+]
+license = {file = "LICENSE"}
+readme = "README.md"
+requires-python = ">=3.11"
+
+[project.urls]
+repository = "https://github.com/aecobb53/my_base_html_lib"
