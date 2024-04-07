@@ -290,6 +290,10 @@ class MyBaseDocument:
 
         # sidebar_content
         if self.sidebar_content:
+            print(f"Navigation Content: {self.navigation_content}")
+            print(f"Sidebar Content: {self.sidebar_content}")
+            print(f"Body Content: {self.body_content}")
+            print(f"Footer Content: {self.footer_content}")
             # if self.navigation_content:
             #     self.sidebar_content_style.styles['top'] = self.navigation_height
             if self.navigation_content is not None:
