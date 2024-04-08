@@ -1,3 +1,4 @@
+from hashlib import new
 from turtle import width
 from phtml import Document, Div, Style, Header, Link, Image
 from pydantic import BaseModel, model_validator
@@ -19,10 +20,12 @@ class NavigationContent(BaseModel):
             fields['style_details'] = {
                 'background-color': '#1e1f22',
                 'height': '50px',  # Overridable
+                'width': '100%',
                 'color': '#949ba4',
                 'padding': '0',
                 'margin': '0',
-                'position': 'relative',
+                'position': 'fixed',
+                'z-index': '50',
             }
 
         # Navigation Urls
@@ -97,6 +100,7 @@ class SidebarContent(BaseModel):
                 'left': '0',
                 'overflow-x': 'hidden',
                 'color': '#949ba4',
+                'z-index': '45',
             }
 
         # # Sidebar Urls
@@ -166,11 +170,22 @@ class BodyContent(BaseModel):
         obj = Style(name=self.style_name, style_details=self.style_details)
         return obj
 
-    def return_html_object(self, left_offset=None):
-        # if top_offset is not None:
-        #     self.style_details['top'] = top_offset
+    def return_html_object(self, top_offset, left_offset=None, footer_offset=None):
+        if top_offset is not None:
+            self.style_details['top'] = top_offset
         if left_offset is not None:
             self.style_details['left'] = left_offset
+        if footer_offset is not None:
+            if 'padding' in self.style_details:
+                padding_details = self.style_details['padding'].split(' ')
+                if len(padding_details) >= 3:
+                    padding_details[2] = f"{max([int(padding_details[2][:-2]), int(footer_offset[:-2])])}px"
+                else:
+                    padding_details[0] = f"{max([int(padding_details[0][:-2]), int(footer_offset[:-2])])}px"
+            else:
+                padding_details = ['0px', '0px', footer_offset, '0px']
+            self.style_details['padding'] = ' '.join(padding_details)
+            self.style_details['bottom'] = footer_offset
         style_object = self.return_style_object()
         obj = Div(
             internal=self.body_content).add_class(
@@ -193,9 +208,10 @@ class FooterContent(BaseModel):
             fields['style_details'] = {
                 'background-color': '#1e1f22',
                 'color': '#949ba4',
-                'position': 'fixed',
+                'position': 'relative',
                 'bottom': '0',
                 'width': '100%',
+                'z-index': '40',
             }
 
         return fields
@@ -314,12 +330,20 @@ class MyBaseDocument:
 
         # body_content
         if self.body_content:
+            if self.navigation_content is not None:
+                top_offset = self.navigation_height
+            else:
+                top_offset = '0'
             if self.sidebar_content is not None:
                 left_offset = self.sidebar_width
             else:
                 left_offset = '0'
+            if self.footer_content is not None:
+                footer_offset = self.footer_height
+            else:
+                footer_offset = '0'
             document.add_body_element(self.body_content.return_html_object(
-                left_offset=left_offset
+                top_offset=top_offset, left_offset=left_offset, footer_offset=footer_offset
             ))
             # if self.navigation_content:
             #     self.body_content_style.styles['top'] = self.navigation_height
