@@ -19,6 +19,7 @@ class NavigationContent(BaseModel):
         if 'style_details' not in fields:
             fields['style_details'] = {
                 'background-color': '#1e1f22',
+                'top': '0',
                 'height': '50px',  # Overridable
                 'width': '100%',
                 'color': '#949ba4',
@@ -92,7 +93,7 @@ class SidebarContent(BaseModel):
         if 'style_details' not in fields:
             fields['style_details'] = {
                 'background-color': '#2b2d31',
-                # 'height': '100%',
+                'height': '100%',
                 'top': '0',  # Overridable
                 'width': '200px',  # Overridable
                 'position': 'fixed',
@@ -100,7 +101,7 @@ class SidebarContent(BaseModel):
                 'left': '0',
                 'overflow-x': 'hidden',
                 'color': '#949ba4',
-                'z-index': '45',
+                'z-index': '40',
             }
 
         # # Sidebar Urls
@@ -208,10 +209,14 @@ class FooterContent(BaseModel):
             fields['style_details'] = {
                 'background-color': '#1e1f22',
                 'color': '#949ba4',
-                'position': 'relative',
-                'bottom': '0',
+                'position': 'absolute',
+                # 'position': 'fixed',
+                # 'position': 'sticky',
+                # 'bottom': '0',
+                # 'left': '0',
+                'height': '50px',  # Overridable
                 'width': '100%',
-                'z-index': '40',
+                'z-index': '45',
             }
 
         return fields
@@ -241,9 +246,11 @@ class FooterContent(BaseModel):
         obj = Style(name=self.style_name, style_details=self.style_details)
         return obj
 
-    def return_html_object(self, height='50px'):
+    def return_html_object(self, height='50px', left_offset=None):
         style_object = self.return_style_object()
         style_object.styles['height'] = height
+        if left_offset is not None:
+            style_object.styles['left'] = left_offset
         obj = Div(
             internal=self.footer_content).add_class(
                 'footer_content').add_style(
@@ -357,6 +364,10 @@ class MyBaseDocument:
 
         # footer_content
         if self.footer_content:
+            if self.navigation_content is not None:
+                top_offset = self.navigation_height
+            else:
+                top_offset = '0'
             document.add_body_element(self.footer_content.return_html_object(
                 height=self.footer_height))
             # if self.navigation_content:
