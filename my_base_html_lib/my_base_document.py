@@ -276,7 +276,7 @@ class MyBaseDocument:
 
         # document
         self.document_style = Style(name='body', style_details={
-            'background-color': '#313338',
+            'background-color': '#393B41',
             'padding': '0',
             'margin': '0',
             'position': 'relative',
