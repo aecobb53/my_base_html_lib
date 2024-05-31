@@ -10,6 +10,7 @@ class NavigationContent(BaseModel):
     navigation_content: Optional[List] = None
     style_name: Optional[str] = '.navigation_content'
     style_details: Optional[Dict[str, str]] = {}
+    id: Optional[str] = 'navigation_content'
 
     navigation_urls: Dict[str, str] = {}
 
@@ -74,7 +75,8 @@ class NavigationContent(BaseModel):
         style_object = self.return_style_object()
         style_object.styles['height'] = height
         obj = Div(
-            internal=self.navigation_content).add_class(
+            internal=self.navigation_content,
+            id=self.id).add_class(
                 'navigation_content').add_style(
                     style_object)
         return obj
@@ -84,6 +86,7 @@ class SidebarContent(BaseModel):
     sidebar_content: Optional[List] = None
     style_name: Optional[str] = '.sidebar_content'
     style_details: Optional[Dict[str, str]] = {}
+    id: Optional[str] = 'sidebar_content'
 
     sidebar_urls: Dict[str, str] = {}
 
@@ -136,7 +139,8 @@ class SidebarContent(BaseModel):
         style_object.styles['bottom'] = bottom_offset
         style_object.styles['width'] = width
         obj = Div(
-            internal=self.sidebar_content).add_class(
+            internal=self.sidebar_content,
+            id=self.id).add_class(
                 'sidebar_content').add_style(
                     style_object)
         return obj
@@ -146,6 +150,7 @@ class BodyContent(BaseModel):
     body_content: Optional[List] = None
     style_name: Optional[str] = '.body_content'
     style_details: Optional[Dict[str, str]] = {}
+    id: Optional[str] = 'body_content'
 
     @model_validator(mode='before')
     def validate_fields(cls, fields):
@@ -189,7 +194,8 @@ class BodyContent(BaseModel):
             self.style_details['bottom'] = footer_offset
         style_object = self.return_style_object()
         obj = Div(
-            internal=self.body_content).add_class(
+            internal=self.body_content,
+            id=self.id).add_class(
                 'body_content').add_style(
                     style_object)
         return obj
@@ -199,6 +205,7 @@ class FooterContent(BaseModel):
     footer_content: Optional[List] = None
     style_name: Optional[str] = '.footer_content'
     style_details: Optional[Dict[str, str]] = {}
+    id: Optional[str] = 'footer_content'
 
     navigation_urls: Dict[str, str] = {}
 
@@ -252,7 +259,8 @@ class FooterContent(BaseModel):
         if left_offset is not None:
             style_object.styles['left'] = left_offset
         obj = Div(
-            internal=self.footer_content).add_class(
+            internal=self.footer_content,
+            id=self.id).add_class(
                 'footer_content').add_style(
                     style_object)
         return obj
