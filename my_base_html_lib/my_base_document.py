@@ -308,10 +308,14 @@ class MyBaseDocument:
         # footer_content
         self.footer_content = footer_content
 
+        # Document
+        self.document = Document()
+        self.document.add_head_element(self.document_style)
+
     @property
     def return_document(self):
-        document = Document()
-        document.add_head_element(self.document_style)
+        # self.document = Document()
+        # self.document.add_head_element(self.document_style)
 
         # navigation_content
         if self.navigation_content:
@@ -321,9 +325,9 @@ class MyBaseDocument:
             #     internal=self.navigation_content).add_class('navigation_content').add_style(
             #         self.navigation_content_style
             #     )
-            # document.add_body_element(navigation_content)
+            # self.document.add_body_element(navigation_content)
             height = self.navigation_height
-            document.add_body_element(self.navigation_content.return_html_object(height=height))
+            self.document.add_body_element(self.navigation_content.return_html_object(height=height))
 
         # sidebar_content
         if self.sidebar_content:
@@ -341,13 +345,13 @@ class MyBaseDocument:
                 footer_offset = self.footer_height
             else:
                 footer_offset = '0'
-            document.add_body_element(self.sidebar_content.return_html_object(
+            self.document.add_body_element(self.sidebar_content.return_html_object(
                 top_offset=top_offset, bottom_offset=footer_offset, width=self.sidebar_width))
             # sidebar_content = Div(
             #     internal=self.sidebar_content).add_class('sidebar_content').add_style(
             #         self.sidebar_content_style
             #     )
-            # document.add_body_element(sidebar_content)
+            # self.document.add_body_element(sidebar_content)
 
         # body_content
         if self.body_content:
@@ -363,7 +367,7 @@ class MyBaseDocument:
                 footer_offset = self.footer_height
             else:
                 footer_offset = '0'
-            document.add_body_element(self.body_content.return_html_object(
+            self.document.add_body_element(self.body_content.return_html_object(
                 top_offset=top_offset, left_offset=left_offset, footer_offset=footer_offset
             ))
             # if self.navigation_content:
@@ -374,7 +378,7 @@ class MyBaseDocument:
             #     internal=self.body_content).add_class('body_content').add_style(
             #         self.body_content_style
             #     )
-            # document.add_body_element(body_content)
+            # self.document.add_body_element(body_content)
 
         # footer_content
         if self.footer_content:
@@ -382,7 +386,7 @@ class MyBaseDocument:
                 top_offset = self.navigation_height
             else:
                 top_offset = '0'
-            document.add_body_element(self.footer_content.return_html_object(
+            self.document.add_body_element(self.footer_content.return_html_object(
                 height=self.footer_height))
             # if self.navigation_content:
             #     self.footer_content_style.styles['top'] = self.navigation_height
@@ -392,5 +396,5 @@ class MyBaseDocument:
             #     internal=self.footer_content).add_class('footer_content').add_style(
             #         self.footer_content_style
             #     )
-            # document.add_body_element(footer_content)
-        return document.return_document
+            # self.document.add_body_element(footer_content)
+        return self.document.return_document
