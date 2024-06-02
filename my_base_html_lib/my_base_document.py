@@ -1,6 +1,6 @@
 from hashlib import new
 from turtle import width
-from phtml import Document, Div, Style, Header, Link, Image
+from phtml import Document, Div, Style, StyleTag, Header, Link, Image
 from pydantic import BaseModel, model_validator
 from typing import Dict, List, Optional
 
@@ -283,12 +283,18 @@ class MyBaseDocument:
         self.footer_content = footer_content
 
         # document
-        self.document_style = Style(name='body', style_details={
-            'background-color': '#393B41',
-            'padding': '0',
-            'margin': '0',
-            'position': 'relative',
-        })
+        self.document_style = StyleTag(name='body', internal="""
+            background-color: #393B41;
+            padding: 0;
+            margin: 0;
+            position: relative;
+        """)
+        # self.document_style = Style(name='body', style_details={
+        #     'background-color': '#393B41',
+        #     'padding': '0',
+        #     'margin': '0',
+        #     'position': 'relative',
+        # })
 
         # navigation_content
         self.navigation_content = navigation_content
@@ -305,7 +311,7 @@ class MyBaseDocument:
     @property
     def return_document(self):
         document = Document()
-        document.add_style(self.document_style)
+        document.add_head_element(self.document_style)
 
         # navigation_content
         if self.navigation_content:
