@@ -274,7 +274,8 @@ class MyBaseDocument:
         navigation_content=None,
         sidebar_content=None,
         body_content=None,
-        footer_content=None,):
+        footer_content=None,
+        document_style=None,):
         # Globals
         self.navigation_height = navigation_height
         self.footer_height = footer_height
@@ -283,12 +284,17 @@ class MyBaseDocument:
         self.footer_content = footer_content
 
         # document
-        self.document_style = StyleTag(name='body', internal="""
-            background-color: #393B41;
-            padding: 0;
-            margin: 0;
-            position: relative;
-        """)
+        if document_style:
+            self.document_style = []
+            for key, value in document_style.items():
+                self.document_style.append(StyleTag(name=key, internal=value))
+        else:
+            self.document_style = [StyleTag(name='body', internal="""
+                background-color: #393B41;
+                padding: 0;
+                margin: 0;
+                position: relative;
+            """)]
         # self.document_style = Style(name='body', style_details={
         #     'background-color': '#393B41',
         #     'padding': '0',
