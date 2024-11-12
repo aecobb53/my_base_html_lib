@@ -316,7 +316,8 @@ class MyBaseDocument:
 
         # Document
         self.document = Document()
-        self.document.add_head_element(self.document_style)
+        for style in self.document_style:
+            self.document.add_head_element(style)
 
     @property
     def return_document(self):
