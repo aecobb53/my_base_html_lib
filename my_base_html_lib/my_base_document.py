@@ -286,8 +286,8 @@ class MyBaseDocument:
         # document
         if document_style:
             self.document_style = []
-            for key, value in document_style.items():
-                self.document_style.append(StyleTag(name=key, internal=value))
+            for style in document_style:
+                self.document_style.append(style)
         else:
             self.document_style = [StyleTag(name='body', internal="""
                 background-color: #393B41;
@@ -295,12 +295,6 @@ class MyBaseDocument:
                 margin: 0;
                 position: relative;
             """)]
-        # self.document_style = Style(name='body', style_details={
-        #     'background-color': '#393B41',
-        #     'padding': '0',
-        #     'margin': '0',
-        #     'position': 'relative',
-        # })
 
         # navigation_content
         self.navigation_content = navigation_content
