@@ -31,7 +31,7 @@ class NavigationContent(BaseModel):
                 'width': '100%',
                 'color': PRIMARY_TEXT_COLOR,
                 'padding': '0',
-                'margin': '0px 5px',
+                'margin': '0',
                 'position': 'fixed',
                 'z-index': '50',
             }
