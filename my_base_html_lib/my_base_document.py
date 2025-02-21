@@ -1,8 +1,14 @@
-from hashlib import new
-from turtle import width
+from turtle import color, width
 from phtml import Document, Div, Style, StyleTag, Header, Link, Image
 from pydantic import BaseModel, model_validator
 from typing import Dict, List, Optional
+
+
+PRIMARY_COLOR = '#2b2d31'
+SECONDARY_COLOR = '#1e1f22'
+# ACCENT_COLOR = 
+PRIMARY_TEXT_COLOR = '#949ba4'
+SECONDARY_TEXT_COLOR = '#c4cedb'
 
 
 class NavigationContent(BaseModel):
@@ -19,13 +25,13 @@ class NavigationContent(BaseModel):
         # Style Details
         if 'style_details' not in fields:
             fields['style_details'] = {
-                'background-color': '#1e1f22',
+                'background-color': SECONDARY_COLOR,
                 'top': '0',
                 'height': '50px',  # Overridable
                 'width': '100%',
-                'color': '#949ba4',
+                'color': PRIMARY_TEXT_COLOR,
                 'padding': '0',
-                'margin': '0',
+                'margin': '0px 5px',
                 'position': 'fixed',
                 'z-index': '50',
             }
@@ -50,14 +56,14 @@ class NavigationContent(BaseModel):
         navigation_content = [
             # Link(href='favicon.png'),
             Header(level=1, internal=self.webpage_name).add_style(Style(style_details={
-                'margin': '0',
+                'margin': '0px 5px',
                 'padding': '5px 0 5px',
                 'display': 'inline-block'})),
         ]
         link_style = Style(style_details={
             'margin': '15px',
             'padding': '0',
-            'color': '#949ba4',
+            'color': PRIMARY_TEXT_COLOR,
             'display': 'inline-block',
             'float': 'right'
         })
@@ -95,7 +101,7 @@ class SidebarContent(BaseModel):
         # Style Details
         if 'style_details' not in fields:
             fields['style_details'] = {
-                'background-color': '#2b2d31',
+                'background-color': PRIMARY_COLOR,
                 'height': '100%',
                 'top': '0',  # Overridable
                 'width': '200px',  # Overridable
@@ -103,7 +109,7 @@ class SidebarContent(BaseModel):
                 'z-index': '1',
                 'left': '0',
                 'overflow-x': 'hidden',
-                'color': '#949ba4',
+                'color': PRIMARY_TEXT_COLOR,
                 'z-index': '40',
             }
 
@@ -126,7 +132,7 @@ class SidebarContent(BaseModel):
         #     sidebar_url = self.sidebar_urls[sidebar_url_name]
         #     sidebar_content.append(
         #         Link(href=sidebar_url, internal=sidebar_url_name).add_style(
-        #             Style(style_details={'margin': '15px', 'padding': '0', 'color': '#949ba4'})))
+        #             Style(style_details={'margin': '15px', 'padding': '0', 'color': PRIMARY_TEXT_COLOR})))
         return sidebar_content
 
     def return_style_object(self):
@@ -158,7 +164,7 @@ class BodyContent(BaseModel):
         if 'style_details' not in fields:
             fields['style_details'] = {
                 'position': 'relative',
-                'color': '#c4cedb',
+                'color': SECONDARY_TEXT_COLOR,
             }
 
         return fields
@@ -214,8 +220,8 @@ class FooterContent(BaseModel):
         # Style Details
         if 'style_details' not in fields:
             fields['style_details'] = {
-                'background-color': '#1e1f22',
-                'color': '#949ba4',
+                'background-color': SECONDARY_COLOR,
+                'color': PRIMARY_TEXT_COLOR,
                 'position': 'absolute',
                 # 'position': 'fixed',
                 # 'position': 'sticky',
@@ -239,7 +245,7 @@ class FooterContent(BaseModel):
         link_style = Style(style_details={
             'margin': '15px',
             'padding': '0',
-            'color': '#949ba4',
+            'color': PRIMARY_TEXT_COLOR,
             'display': 'inline-block',
             'float': 'right',
         })
