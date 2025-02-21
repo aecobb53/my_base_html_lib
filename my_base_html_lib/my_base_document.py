@@ -50,7 +50,7 @@ class NavigationContent(BaseModel):
         navigation_content = [
             # Link(href='favicon.png'),
             Header(level=1, internal=self.webpage_name).add_style(Style(style_details={
-                'margin': '0',
+                'margin': '0px 5px',
                 'padding': '5px 0 5px',
                 'display': 'inline-block'})),
         ]
