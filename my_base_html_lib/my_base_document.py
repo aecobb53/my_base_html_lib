@@ -5,14 +5,16 @@ from typing import Dict, List, Optional, Any
 
 
 primary_background = '#393B41'
-primary_accent = '#1e1f22'
+secondary_background = '#1e1f22'
+accent_background = '#000000'
 primary_text = '#949ba4'
 
 
-NAVIGATION_BACKGROUND_COLOR = primary_accent
+NAVIGATION_BACKGROUND_COLOR = secondary_background
+NAVIGATION_ACCENT_COLOR = accent_background
 NAVIGATION_TEXT_COLOR = primary_text
 
-BODY_BACKGROUND_COLOR = primary_accent
+BODY_BACKGROUND_COLOR = secondary_background
 BODY_TEXT_COLOR = primary_text
 
 
@@ -62,6 +64,31 @@ class NavigationContent(BaseModel):
         background_color = fields.get('background_color', NAVIGATION_BACKGROUND_COLOR)
         text_color = fields.get('text_color', NAVIGATION_TEXT_COLOR)
 
+        '''
+        margin 3 
+        padding 12
+        background-color
+
+
+        StyleTag(name='.page-div', internal=f"""
+            background-color: {ACCENT_COLOR};
+            margin: 20px;
+            padding: 0;
+            border: 3px solid black;
+            border-radius: 15px;
+            -moz-border-radius: 15px;
+            height: 100px;
+            width: 400px;
+            display: inline-block;
+            vertical-align: top;
+        """),
+
+        StyleTag(name='.page-link', internal=f"""
+            color: {TEXT_COLOR_1};
+            text-decoration: none;
+        """),
+        '''
+
         navigation_styles = [
             StyleTag(name='.navigation-bar-div', internal=f"""
                 background-color: {background_color};
@@ -84,10 +111,14 @@ class NavigationContent(BaseModel):
             """),
             StyleTag(name='.navigation-bar-link', internal=f"""
                 color: {text_color};
-                padding: 12px;
-                margin: 0;
+                background-color: {NAVIGATION_ACCENT_COLOR};
+                padding: 9px;
+                margin: 3px;
                 display: inline-block;
                 float: right;
+                border: 3px solid {NAVIGATION_ACCENT_COLOR};
+                border-radius: 15px;
+                -moz-border-radius: 15px;
             """),
         ]
 
