@@ -47,7 +47,7 @@ class NavigationContent(BaseModel):
         if not fields.get('navigation_links'):
             fields['navigation_links'] = {
                 'About': '/about',
-                'Home': '/',
+                'Home': '/home',
             }
 
         webpage_name = fields['webpage_name']
