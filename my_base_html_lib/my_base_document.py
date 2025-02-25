@@ -56,11 +56,11 @@ class NavigationContent(BaseModel):
                 href=fields['webpage_name_link'], internal=webpage_name).add_class('webpage-name-link')
 
         navigation_div = Div().add_class('navigation-bar-div')
-        navigation_div.add_element(Header(level=2, internal=webpage_name))
         for link_name, link_url in fields['navigation_links'].items():
             navigation_div.add_element(
                 Link(href=link_url, internal=link_name).add_class('navigation-bar-link'))
-        
+        navigation_div.add_element(Header(level=2, internal=webpage_name))
+
         background_color = fields.get('background_color', NAVIGATION_BACKGROUND_COLOR)
         text_color = fields.get('text_color', NAVIGATION_TEXT_COLOR)
 
@@ -68,7 +68,7 @@ class NavigationContent(BaseModel):
             StyleTag(name='.navigation-bar-div', internal=f"""
                 background-color: {background_color};
                 width: 100%;
-                height: 200px;
+                height: 150px;
                 color: {text_color};
                 padding: 0;
                 margin: 0;
@@ -76,7 +76,7 @@ class NavigationContent(BaseModel):
             StyleTag(name='.webpage-name-link', internal=f"""
                 color: {text_color};
                 text-decoration: none;
-                font-size: 3.5em;
+                font-size: 2.5em;
             """),
             StyleTag(name='.navigation-bar-div h2', internal=f"""
                 color: {text_color};
@@ -98,6 +98,41 @@ class NavigationContent(BaseModel):
                 font-size: 1.5em;
             """),
         ]
+
+        # navigation_styles = [
+        #     StyleTag(name='.navigation-bar-div', internal=f"""
+        #         background-color: {background_color};
+        #         width: 100%;
+        #         height: 200px;
+        #         color: {text_color};
+        #         padding: 0;
+        #         margin: 0;
+        #     """),
+        #     StyleTag(name='.webpage-name-link', internal=f"""
+        #         color: {text_color};
+        #         text-decoration: none;
+        #         font-size: 3.5em;
+        #     """),
+        #     StyleTag(name='.navigation-bar-div h2', internal=f"""
+        #         color: {text_color};
+        #         display: inline-block;
+        #         height: 100%;
+        #         padding: 70px 30px;
+        #         margin: 0;
+        #     """),
+        #     StyleTag(name='.navigation-bar-link', internal=f"""
+        #         color: {text_color};
+        #         background-color: {NAVIGATION_ACCENT_COLOR};
+        #         padding: 13px;
+        #         margin: 16px 8px;
+        #         display: inline-block;
+        #         float: right;
+        #         border: 3px solid {NAVIGATION_ACCENT_COLOR};
+        #         border-radius: 15px;
+        #         -moz-border-radius: 15px;
+        #         font-size: 1.5em;
+        #     """),
+        # ]
 
         fields['navigation_div'] = navigation_div
         fields['navigation_styles'] = navigation_styles
