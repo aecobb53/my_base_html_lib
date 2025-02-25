@@ -64,36 +64,11 @@ class NavigationContent(BaseModel):
         background_color = fields.get('background_color', NAVIGATION_BACKGROUND_COLOR)
         text_color = fields.get('text_color', NAVIGATION_TEXT_COLOR)
 
-        '''
-        margin 3 
-        padding 12
-        background-color
-
-
-        StyleTag(name='.page-div', internal=f"""
-            background-color: {ACCENT_COLOR};
-            margin: 20px;
-            padding: 0;
-            border: 3px solid black;
-            border-radius: 15px;
-            -moz-border-radius: 15px;
-            height: 100px;
-            width: 400px;
-            display: inline-block;
-            vertical-align: top;
-        """),
-
-        StyleTag(name='.page-link', internal=f"""
-            color: {TEXT_COLOR_1};
-            text-decoration: none;
-        """),
-        '''
-
         navigation_styles = [
             StyleTag(name='.navigation-bar-div', internal=f"""
                 background-color: {background_color};
                 width: 100%;
-                height: 50px;
+                height: 200px;
                 color: {text_color};
                 padding: 0;
                 margin: 0;
@@ -101,24 +76,26 @@ class NavigationContent(BaseModel):
             StyleTag(name='.webpage-name-link', internal=f"""
                 color: {text_color};
                 text-decoration: none;
+                font-size: 3.5em;
             """),
             StyleTag(name='.navigation-bar-div h2', internal=f"""
                 color: {text_color};
                 display: inline-block;
                 height: 100%;
-                padding: 10px;
+                padding: 70px 30px;
                 margin: 0;
             """),
             StyleTag(name='.navigation-bar-link', internal=f"""
                 color: {text_color};
                 background-color: {NAVIGATION_ACCENT_COLOR};
-                padding: 9px;
-                margin: 3px;
+                padding: 13px;
+                margin: 16px 8px;
                 display: inline-block;
                 float: right;
                 border: 3px solid {NAVIGATION_ACCENT_COLOR};
                 border-radius: 15px;
                 -moz-border-radius: 15px;
+                font-size: 1.5em;
             """),
         ]
 
@@ -548,3 +525,8 @@ class MyBaseDocument:
     #         #     )
     #         # self.document.add_body_element(footer_content)
     #     return self.document.return_document
+
+
+"""
+https://stackoverflow.com/questions/609517/why-em-instead-of-px
+"""
