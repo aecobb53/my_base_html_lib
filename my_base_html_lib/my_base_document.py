@@ -1,3 +1,4 @@
+from pydoc import doc
 import re
 from phtml import Document, Div, Style, StyleTag, Header, Link, Image, Base
 from pydantic import BaseModel, model_validator, ConfigDict
@@ -394,15 +395,22 @@ class MyBaseDocument:
         self.sidebar_content = sidebar_content
         self.body_content = body_content
         self.footer_content = footer_content
-        self.document_style = document_style
+        # self.document_style = document_style
+
+        doc_styles = []
 
         if document_style is None:
-            self.document_style = [
-                StyleTag(name='body', internal="""
-                margin: 0;
-                padding: 0;
-                """),
-            ]
+            doc_styles.extend(document_style)
+        if style_items:
+            doc_styles.extend(style_items)
+        # if document_style == []:
+        #     doc_styles = [
+        #         StyleTag(name='body', internal="""
+        #         margin: 0;
+        #         padding: 0;
+        #         """),
+        #     ]
+        self.doc_styles = doc_styles
 
     @property
     def return_document(self):
