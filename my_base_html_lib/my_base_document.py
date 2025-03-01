@@ -235,24 +235,17 @@ class BodyContent(BaseModel):
         for item in fields.get('body_content', []):
             body_div.add_element(item)
 
-        body_styles = [
-            StyleTag(name='.body-content-div', internal=f"""
-                color: {BODY_TEXT_COLOR};
-                padding: 0;
-                margin: 0;
-            """),
-            # StyleTag(name='.body-content-div', internal=f"""
-            #     position: relative;
-            #     color: {BODY_TEXT_COLOR};
-            #     top: 50px;
-            #     left: 0;
-            #     padding: 0px 0px 0 0px;
-            #     bottom: 0;
-            # """),
-        ]
+        if not fields.get('body_styles'):
+            fields['body_styles'] = [
+                StyleTag(name='.body-content-div', internal=f"""
+                    color: {BODY_TEXT_COLOR};
+                    padding: 0;
+                    margin: 0;
+                """),
+            ]
 
         fields['body_div'] = body_div
-        fields['body_styles'] = body_styles
+        # fields['body_styles'] = body_styles
         return fields
 
     def add_body_link(self, link_name: str, link_url: str):
