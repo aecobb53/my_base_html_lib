@@ -396,12 +396,13 @@ class MyBaseDocument:
         self.footer_content = footer_content
         self.document_style = document_style
 
-        self.doc_styles = [
-            StyleTag(name='body', internal="""
-            margin: 0;
-            padding: 0;
-            """),
-        ]
+        if document_style is None:
+            self.document_style = [
+                StyleTag(name='body', internal="""
+                margin: 0;
+                padding: 0;
+                """),
+            ]
 
     @property
     def return_document(self):
