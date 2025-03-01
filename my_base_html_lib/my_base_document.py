@@ -100,41 +100,6 @@ class NavigationContent(BaseModel):
             """),
         ]
 
-        # navigation_styles = [
-        #     StyleTag(name='.navigation-bar-div', internal=f"""
-        #         background-color: {background_color};
-        #         width: 100%;
-        #         height: 200px;
-        #         color: {text_color};
-        #         padding: 0;
-        #         margin: 0;
-        #     """),
-        #     StyleTag(name='.webpage-name-link', internal=f"""
-        #         color: {text_color};
-        #         text-decoration: none;
-        #         font-size: 3.5em;
-        #     """),
-        #     StyleTag(name='.navigation-bar-div h2', internal=f"""
-        #         color: {text_color};
-        #         display: inline-block;
-        #         height: 100%;
-        #         padding: 70px 30px;
-        #         margin: 0;
-        #     """),
-        #     StyleTag(name='.navigation-bar-link', internal=f"""
-        #         color: {text_color};
-        #         background-color: {NAVIGATION_ACCENT_COLOR};
-        #         padding: 13px;
-        #         margin: 16px 8px;
-        #         display: inline-block;
-        #         float: right;
-        #         border: 3px solid {NAVIGATION_ACCENT_COLOR};
-        #         border-radius: 15px;
-        #         -moz-border-radius: 15px;
-        #         font-size: 1.5em;
-        #     """),
-        # ]
-
         fields['navigation_div'] = navigation_div
         fields['navigation_styles'] = navigation_styles
         return fields
@@ -256,61 +221,6 @@ class BodyContent(BaseModel):
     def add_body_styles(self, style_item: StyleTag):
         self.body_styles.append(style_item)
 
-
-    # body_content: Optional[List] = None
-    # style_name: Optional[str] = '.body_content'
-    # style_details: Optional[Dict[str, str]] = {}
-    # id: Optional[str] = 'body_content'
-
-    # @model_validator(mode='before')
-    # def validate_fields(cls, fields):
-    #     # Style Details
-    #     if 'style_details' not in fields:
-    #         fields['style_details'] = {
-    #             'position': 'relative',
-    #             'color': '#c4cedb',
-    #         }
-
-    #     return fields
-
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.body_content = self.generate_default_body_content()
-
-    # def generate_default_body_content(self):
-    #     # This method is for setting default behavior
-    #     body_content = self.body_content
-    #     return body_content
-
-    # def return_style_object(self):
-    #     obj = Style(name=self.style_name, style_details=self.style_details)
-    #     return obj
-
-    # def return_html_object(self, top_offset, left_offset=None, footer_offset=None):
-    #     if top_offset is not None:
-    #         self.style_details['top'] = top_offset
-    #     if left_offset is not None:
-    #         self.style_details['left'] = left_offset
-    #     if footer_offset is not None:
-    #         if 'padding' in self.style_details:
-    #             padding_details = self.style_details['padding'].split(' ')
-    #             if len(padding_details) >= 3:
-    #                 padding_details[2] = f"{max([int(padding_details[2][:-2]), int(footer_offset[:-2])])}px"
-    #             else:
-    #                 padding_details[0] = f"{max([int(padding_details[0][:-2]), int(footer_offset[:-2])])}px"
-    #         else:
-    #             padding_details = ['0px', '0px', footer_offset, '0px']
-    #         self.style_details['padding'] = ' '.join(padding_details)
-    #         self.style_details['bottom'] = footer_offset
-    #     style_object = self.return_style_object()
-    #     obj = Div(
-    #         internal=self.body_content,
-    #         id=self.id).add_class(
-    #             'body_content').add_style(
-    #                 style_object)
-    #     return obj
-
-
 class FooterContent(BaseModel):
     footer_content: Optional[List] = None
     style_name: Optional[str] = '.footer_content'
@@ -378,9 +288,6 @@ class FooterContent(BaseModel):
 
 class MyBaseDocument:
     def __init__(self,
-        # navigation_height='50px',
-        # footer_height='50px',
-        # sidebar_width='200px',
         navigation_content=None,
         sidebar_content=None,
         body_content=None,
@@ -388,14 +295,11 @@ class MyBaseDocument:
         document_style=None,
         style_items=None,
         primary_background_color=BODY_BACKGROUND_COLOR,
-        # secondary_background_color=,
-        # primary_text_color=,
     ):
         self.navigation_content = navigation_content
         self.sidebar_content = sidebar_content
         self.body_content = body_content
         self.footer_content = footer_content
-        # self.document_style = document_style
 
         doc_styles = []
 
@@ -403,13 +307,6 @@ class MyBaseDocument:
             doc_styles.extend(document_style)
         if style_items:
             doc_styles.extend(style_items)
-        # if document_style == []:
-        #     doc_styles = [
-        #         StyleTag(name='body', internal="""
-        #         margin: 0;
-        #         padding: 0;
-        #         """),
-        #     ]
         self.doc_styles = doc_styles
 
     @property
@@ -432,136 +329,6 @@ class MyBaseDocument:
             doc.add_head_element(style)
 
         return doc.return_document
-
-
-
-
-
-
-
-
-
-
-
-
-        # # document
-        # if document_style:
-        #     self.document_style = []
-        #     for style in document_style:
-        #         self.document_style.append(style)
-        # else:
-        #     self.document_style = [StyleTag(name='body', internal=f"""
-        #         background-color: {primary_background_color};
-        #         padding: 0;
-        #         margin: 0;
-        #         position: relative;
-        #     """)]
-
-        # # navigation_content
-        # self.navigation_content = navigation_content
-
-        # # sidebar_content
-        # self.sidebar_content = sidebar_content
-
-        # # body_content
-        # self.body_content = body_content
-
-        # # footer_content
-        # self.footer_content = footer_content
-
-        # # Document
-        # self.document = Document()
-        # for style in self.document_style:
-        #     self.document.add_head_element(style)
-
-
-
-    # @property
-    # def return_document(self):
-    #     # self.document = Document()
-    #     # self.document.add_head_element(self.document_style)
-
-    #     # navigation_content
-    #     if self.navigation_content:
-    #         # self.navigation_content.style_details['height'] = self.navigation_height
-    #         # self.navigation_content_style.styles['height'] = self.navigation_height
-    #         # navigation_content = Div(
-    #         #     internal=self.navigation_content).add_class('navigation_content').add_style(
-    #         #         self.navigation_content_style
-    #         #     )
-    #         # self.document.add_body_element(navigation_content)
-    #         height = self.navigation_height
-    #         self.document.add_body_element(self.navigation_content.return_html_object(height=height))
-
-    #     # sidebar_content
-    #     if self.sidebar_content:
-    #         print(f"Navigation Content: {self.navigation_content}")
-    #         print(f"Sidebar Content: {self.sidebar_content}")
-    #         print(f"Body Content: {self.body_content}")
-    #         print(f"Footer Content: {self.footer_content}")
-    #         # if self.navigation_content:
-    #         #     self.sidebar_content_style.styles['top'] = self.navigation_height
-    #         if self.navigation_content is not None:
-    #             top_offset = self.navigation_height
-    #         else:
-    #             top_offset = '0'
-    #         if self.footer_content is not None:
-    #             footer_offset = self.footer_height
-    #         else:
-    #             footer_offset = '0'
-    #         self.document.add_body_element(self.sidebar_content.return_html_object(
-    #             top_offset=top_offset, bottom_offset=footer_offset, width=self.sidebar_width))
-    #         # sidebar_content = Div(
-    #         #     internal=self.sidebar_content).add_class('sidebar_content').add_style(
-    #         #         self.sidebar_content_style
-    #         #     )
-    #         # self.document.add_body_element(sidebar_content)
-
-    #     # body_content
-    #     if self.body_content:
-    #         if self.navigation_content is not None:
-    #             top_offset = self.navigation_height
-    #         else:
-    #             top_offset = '0'
-    #         if self.sidebar_content is not None:
-    #             left_offset = self.sidebar_width
-    #         else:
-    #             left_offset = '0'
-    #         if self.footer_content is not None:
-    #             footer_offset = self.footer_height
-    #         else:
-    #             footer_offset = '0'
-    #         self.document.add_body_element(self.body_content.return_html_object(
-    #             top_offset=top_offset, left_offset=left_offset, footer_offset=footer_offset
-    #         ))
-    #         # if self.navigation_content:
-    #         #     self.body_content_style.styles['top'] = self.navigation_height
-    #         # if self.sidebar_content:
-    #         #     self.body_content_style.styles['left'] = self.sidebar_width
-    #         # body_content = Div(
-    #         #     internal=self.body_content).add_class('body_content').add_style(
-    #         #         self.body_content_style
-    #         #     )
-    #         # self.document.add_body_element(body_content)
-
-    #     # footer_content
-    #     if self.footer_content:
-    #         if self.navigation_content is not None:
-    #             top_offset = self.navigation_height
-    #         else:
-    #             top_offset = '0'
-    #         self.document.add_body_element(self.footer_content.return_html_object(
-    #             height=self.footer_height))
-    #         # if self.navigation_content:
-    #         #     self.footer_content_style.styles['top'] = self.navigation_height
-    #         # if self.sidebar_content:
-    #         #     self.footer_content_style.styles['left'] = self.sidebar_width
-    #         # footer_content = Div(
-    #         #     internal=self.footer_content).add_class('footer_content').add_style(
-    #         #         self.footer_content_style
-    #         #     )
-    #         # self.document.add_body_element(footer_content)
-    #     return self.document.return_document
 
 
 """
