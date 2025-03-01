@@ -399,7 +399,7 @@ class MyBaseDocument:
 
         doc_styles = []
 
-        if document_style is None:
+        if document_style:
             doc_styles.extend(document_style)
         if style_items:
             doc_styles.extend(style_items)
