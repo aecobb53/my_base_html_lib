@@ -295,11 +295,13 @@ class MyBaseDocument:
         document_style=None,
         style_items=None,
         primary_background_color=BODY_BACKGROUND_COLOR,
+        onload_function=None,
     ):
         self.navigation_content = navigation_content
         self.sidebar_content = sidebar_content
         self.body_content = body_content
         self.footer_content = footer_content
+        self.onload_function = onload_function
 
         doc_styles = []
 
@@ -312,6 +314,9 @@ class MyBaseDocument:
     @property
     def return_document(self):
         doc = Document()
+        if self.onload_function:
+            body = doc.html.internal[1]
+            body.attributes['onload'] = self.onload_function
         doc_styles = self.doc_styles
 
         # Navigation Bar Content
