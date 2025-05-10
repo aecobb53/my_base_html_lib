@@ -1,6 +1,6 @@
 [project]
 name = "my_base_html_lib"
-version = "1.0.0"
+version = "1.3.0"
 description = 'Creates a default html web page format'
 authors = [
     {name = "Andrew Cobb", email = "aecobb53@gmail.com"}

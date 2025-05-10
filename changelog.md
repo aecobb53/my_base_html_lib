@@ -4,3 +4,6 @@ Added ID fields to each my_base_document
 
 1.2.0
 Adding to style in header feature
+
+1.3.0
+Adding favicon
