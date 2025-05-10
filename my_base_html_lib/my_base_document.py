@@ -296,12 +296,14 @@ class MyBaseDocument:
         style_items=None,
         primary_background_color=BODY_BACKGROUND_COLOR,
         onload_function=None,
+        favicon=None
     ):
         self.navigation_content = navigation_content
         self.sidebar_content = sidebar_content
         self.body_content = body_content
         self.footer_content = footer_content
         self.onload_function = onload_function
+        self.favicon = favicon
 
         doc_styles = []
 
@@ -312,8 +314,11 @@ class MyBaseDocument:
         self.doc_styles = doc_styles
 
     @property
-    def return_document(self):
+    def return_phtml(self):
         doc = Document()
+        if self.favicon:
+            doc.add_favicon(self.favicon)
+
         if self.onload_function:
             body = doc.html.internal[1]
             body.attributes['onload'] = self.onload_function
@@ -333,6 +338,11 @@ class MyBaseDocument:
         for style in doc_styles:
             doc.add_head_element(style)
 
+        return doc
+
+    @property
+    def return_document(self):
+        doc = self.return_phtml
         return doc.return_document
 
 
